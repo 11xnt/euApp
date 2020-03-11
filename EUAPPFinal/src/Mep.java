@@ -28,44 +28,44 @@ public class Mep {
      * GETTERS & SETTERS
      */
     // Returns the MEP Name
-    public String getMepName() {
+    public String getMEPName() {
         return mepName;
     }
 
     // Updates the MEP Name to the value passed as a parameter
-    public void setMepName(String mepName) {
+    public void setMEPName(String mepName) {
         this.mepName = mepName;
     }
 
     // Returns the MEP's Email
-    public String getMepEmail() {
+    public String getMEPEmail() {
         return mepEmail;
     }
 
     // Updates the MEP's Email to the value passed as a parameter
     // !!Must contain an @ and .!!
-    public void setMepEmail(String mepEmail) {
+    public void setMEPEmail(String mepEmail) {
         this.mepEmail = mepEmail;
     }
 
     // Returns the MEP's Phone
-    public String getMepPhone() {
+    public String getMEPPhone() {
         return mepPhone;
     }
 
     // Updates the MEP's Phone to the value passed as a parameter
     // !!Must contain only numbers!!
-    public void setMepPhone(String mepPhone) {
+    public void setMEPPhone(String mepPhone) {
         this.mepPhone = mepPhone;
     }
 
     // Returns the MEP's Party
-    public Party getMepParty() {
+    public Party getMEPParty() {
         return mepParty;
     }
 
     // Updates the MEP's Party to the value passed as a parameter
-    public void setMepParty(Party mepParty, PartyList partyList) {
+    public void setMEPParty(Party mepParty, PartyList partyList) {
         this.mepParty = mepParty;
     }
 

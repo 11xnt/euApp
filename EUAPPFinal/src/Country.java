@@ -21,8 +21,7 @@ public class Country {
 
     public boolean removeMep(int i)
     {
-        if ((i >= 0) && (i < meps.size())) {
-            getMep(i).remove(i);
+        if (Utilities.validIndex(i, meps)) {
             return true;
         } else {
             return false;
@@ -43,7 +42,7 @@ public class Country {
         }
     }
 
-    public String listOfMeps()
+    public String listOfMEPs()
     {
         if (getName().isEmpty()){
             return "No MEPs are currently in this Country.";
@@ -62,7 +61,7 @@ public class Country {
      * @param party
      * @return The list of Meps currently added to this country that are members of the supplied party.
      */
-    public String listOfMepsByParty(Party party)
+    public String listOfMEPsByParty(Party party)
     {
         //checks if the size of Meps of the country are empty.
         if (meps.size() == 0){
@@ -77,7 +76,7 @@ public class Country {
         }
     }
 
-    public int noOfMepsByParty(ArrayList<Party> party)
+    public int noOfMEPsByParty(ArrayList<Party> party)
     {
         //checks if the size of Meps of the country are empty.
         if (meps.size() == 0){

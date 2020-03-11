@@ -76,7 +76,7 @@ public class EUDriver {
                     addParty();
                     break;
                 case 10:
-                    deleteParty();
+                    removeParty();
                     break;
                 case 11:
                     updateParty();
@@ -97,7 +97,7 @@ public class EUDriver {
                     listPartyByGenre();
                     break;
                 case 17:
-                    listMepsByPartyName();
+                    listMEPsByPartyName();
                 default:
                     System.out.println("Invalid option entered: " + option);
                     break;
@@ -126,22 +126,22 @@ public class EUDriver {
     private void addCountry() {
         System.out.print("Enter the Country Name:    ");
         String name = input.nextLine();
-        int noMeps = ScannerInput.readNextInt("Enter the number of Meps: ");
+        int noMEPs = ScannerInput.readNextInt("Enter the number of Meps: ");
 
         euCountries.add(new Country(name,
-                noMeps));
+                noMEPs));
     }
 
     /**
      * deleteCountry deletes the country the user chooses.
-     * done!
+     * done
      */
     private void deleteCountry() {
         System.out.println(listCountries());
         if (getEuCountries().size() >= 0) {
             int index = ScannerInput.readNextInt("Enter the index of the product to delete ==> ");
 
-            if ((index >= 0) && (index < getEuCountries().size())) {
+            if (Utilities.validIndex(index, euCountries)) {
                 getEuCountries().remove(index);
                 System.out.println("Country deleted.");
             } else {
@@ -253,10 +253,10 @@ public class EUDriver {
                     System.out.print("Enter the MEP's Party:    ");
                     //retrieve the MEP from the ArrayList and update the details with the user input
                     Mep mep = euCountries.get(i).getMep(index);
-                    mep.setMepName(mepName);
-                    mep.setMepEmail(mepEmail);
-                    mep.setMepPhone(mepPhone);
-                    mep.setMepParty(mepParty);
+                    mep.setMEPName(mepName);
+                    mep.setMEPEmail(mepEmail);
+                    mep.setMEPPhone(mepPhone);
+                    mep.setMEPParty(mepParty);
 
                 } else {
                     System.out.println("There is no MEP for this index number");
@@ -289,16 +289,14 @@ public class EUDriver {
             }
 
 
-/*flag loop, in the notes
-        public Country findCountry(String string)
-         {
-         for (Country c : euCountries) {
-         if(string.matches(String.valueOf(euCountries))) {
-         return euCountries.get()
-         }
-         }
-         }
-         */
+        public Country findCountry(String string) {
+            for (Country c : euCountries) {
+                if (string.matches(c.getName())) {
+                    return c;
+                }
+            }
+        }
+
 
     /**************
      * Party MENU *
@@ -310,7 +308,7 @@ public class EUDriver {
         System.out.print("Enter the Party's Leader:   ");
         String partyLeader = input.nextLine();
         try {
-            if(!genre.equals(partyGenre.))
+            if(Utilities.validGenre(String))
             String partyGenre = input.nextLine();
         } catch (Exception e) {
             input.nextLine();
@@ -323,7 +321,7 @@ public class EUDriver {
     }
 
 
-    private void deleteParty(){
+    private void removeParty(){
         //lists the currently stored parties in the partyList object.
         System.out.println(partyList.listOfParties());
 
@@ -332,7 +330,7 @@ public class EUDriver {
             //Ask the user to enter the index of the party they wish to delete
             int index = ScannerInput.readNextInt("Enter the index of the party to delete ==> ");
 
-            if ((index >= 0) && (index < partyList.getPartyList().size())) {
+            if (Utilities.validIndex(index, partyList.getPartyList())) {
                 //if the index is valid, delete the party at the given index
                 partyList.getPartyList().remove(index);
                 System.out.println("Party deleted.");
@@ -401,31 +399,31 @@ public class EUDriver {
         System.out.println(partyList.listPartiesBySpecificGenre(genre));
     }
 
-    private void listMepsByPartyName()
+    private void listMEPsByPartyName()
     {
         System.out.print("Enter the Party Name:    ");
         String party = input.nextLine();
 
-        System.out.println(listMepsBySpecificParty(party));
+        System.out.println(listMEPsBySpecificParty(party));
     }
 
     //list all the meps in the specific party
-    public String listMepsBySpecificParty(String party)
+    public String listMEPsBySpecificParty(String party)
     {
-        if (getParty(index).isEmpty()){
+        if (Party(index).isEmpty()){
             return "No Meps in this party ";
         }
         else
         {
-            String listMepsBySpecificParty = "";
+            String listMEPsBySpecificParty = "";
             for (int i = 0; i < partyList.getPartyList().size(); i++)
             {
                 if(partyList.getPartyList(i).get) {
-                    listMepsBySpecificParty = listMepsBySpecificParty + i + ": " + getParty(i) + "\n";
+                    listMEPsBySpecificParty = listMEPsBySpecificParty + i + ": " + getParty(i) + "\n";
                 }
 
             }
-            return listMepsBySpecificParty;
+            return listMEPsBySpecificParty;
         }
     }
 

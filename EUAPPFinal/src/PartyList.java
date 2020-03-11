@@ -17,8 +17,8 @@ public class PartyList {
     }
 
     public boolean removeParty(int index) {
-        if ((index >= 0) && (index < parties.size())) {
-            getPartyList().remove(index);
+        if (Utilities.validIndex(index, parties)) {
+            parties.remove(index);
             return true;
         } else {
             return false;
@@ -42,7 +42,7 @@ public class PartyList {
     {
         if (parties.size() != 0) {
             int numberOfParties = 0;
-            for (int i = 0; i < parties.size(); i++) {
+            for (int i = 0; i <= parties.size(); i++) {
                 numberOfParties = numberOfParties + parties.size();
             }
             return numberOfParties;
@@ -70,15 +70,15 @@ public class PartyList {
 
 
     //calculates the party with the most Meps.
-    public Party mostMeps(ArrayList<Country> euCountries)
+    public Party mostMEPs(ArrayList<Country> euCountries)
     {
         if(!parties.isEmpty())
         {
-            Country mostMeps = euCountries.get(0);
+            Country mostMEPs = euCountries.get(0);
             for (Country country : euCountries)
             {
-                if (country.listOfMepsByParty() > mostMeps.getMeps())
-                    mostMeps = party;
+                if (country.listOfMEPsByParty() > mostMEPs.getMeps())
+                    mostMEPs = party;
             }
             return party.
         }
