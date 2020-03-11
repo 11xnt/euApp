@@ -335,7 +335,7 @@ public class EUDriver {
                 partyList.getPartyList().remove(index);
                 System.out.println("Party deleted.");
             } else {
-                System.out.println("There is no party for this index number");
+                System.out.println("There is no party for this index numbers");
             }
         }
     }
