@@ -300,7 +300,7 @@ public class EUDriver {
 
     /**************
      * Party MENU *
-     ***************/
+     **************/
 
     private void addParty(Party party){
         System.out.print("Enter the Party's Name:    ");
@@ -335,7 +335,7 @@ public class EUDriver {
                 partyList.getPartyList().remove(index);
                 System.out.println("Party deleted.");
             } else {
-                System.out.println("There is no party for this index numbers");
+                System.out.println("There is no party for this index number");
             }
         }
     }
