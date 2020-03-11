@@ -300,7 +300,7 @@ public class EUDriver {
 
     /**************
      * Party MENU *
-     **************/
+     ***************/
 
     private void addParty(Party party){
         System.out.print("Enter the Party's Name:    ");
