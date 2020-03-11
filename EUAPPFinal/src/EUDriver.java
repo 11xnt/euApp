@@ -70,7 +70,7 @@ public class EUDriver {
                     upDateMEP();
                     break;
                 case 8:
-                    listMepsOfCountry();
+                    listMEPsOfCountry();
                     break;
                 case 9:
                     addParty();
@@ -269,7 +269,7 @@ public class EUDriver {
      * Lets a user type in a country they wish to see the Meps in
      * @return the Meps of that country the user typed in
 */
-        private String listMepsOfCountry() {
+        private String listMEPsOfCountry() {
             if (euCountries.size() == 0) {
                 return "No Countries";
             } else {
