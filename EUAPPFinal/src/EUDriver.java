@@ -414,7 +414,7 @@ public class EUDriver {
             String listMEPsBySpecificParty = "";
             while (getPartyList() > mep)
             {
-                if(partyList.getPartyList(i).ge) {
+                if(partyList.getPartyList(i).get) {
                     listMEPsBySpecificParty = listMEPsBySpecificParty + i + ": " + getParty(i) + "\n";
                 }
 
