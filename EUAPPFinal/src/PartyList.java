@@ -11,7 +11,6 @@ public class PartyList {
         parties = new ArrayList<Party>();
     }
 
-
     public void addParty(Party party) {
         parties.add(party);
     }
@@ -53,23 +52,22 @@ public class PartyList {
 
 
     //calculates the largest party with the most local representatives.
-    public Party largestParty()
-    {
-        if(!parties.isEmpty())
-        {
+    public Party largestParty() {
+        if (!parties.isEmpty()) {
             Party largestParty = parties.get(0);
-            for (Party party : parties)
-            {
-                if (party.getNumLocalReps() > largestParty.getNumLocalReps())
+            for (Party party : parties) {
+                while (party.getNumLocalReps() > largestParty.getNumLocalReps())
                     largestParty = party;
             }
-            return largestParty.getPartyName();
+            return largestParty;
         }
-
+        else {
+            return null;
+        }
     }
 
 
-    //calculates the party with the most Meps.
+    //calculates the party with the most MEPs.
     public Party mostMEPs(ArrayList<Country> euCountries)
     {
         if(!parties.isEmpty())

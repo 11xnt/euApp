@@ -66,6 +66,7 @@ public class EUDriver {
                     break;
                 case 6:
                     deleteMEP();
+                    break;
                 case 7:
                     upDateMEP();
                     break;
@@ -76,7 +77,7 @@ public class EUDriver {
                     addParty();
                     break;
                 case 10:
-                    removeParty();
+                    deleteParty();
                     break;
                 case 11:
                     updateParty();
@@ -91,7 +92,7 @@ public class EUDriver {
                     printLargestParty();
                     break;
                 case 15:
-                    printMostMeps();
+                    printMostMEPs();
                     break;
                 case 16:
                     listPartyByGenre();
@@ -197,10 +198,9 @@ public class EUDriver {
         System.out.print("Enter the MEP's Phone number:    ");
         String mepPhone = input.nextLine();
         System.out.print("Enter the MEP's Party:    ");
-       // Party mepParty = input.nextLine();
+        Party mepParty = input.nextParty();
 
-        //euCountries.add(new Mep(mepName,
-              //  mepEmail, mepPhone, partyList));
+        Country.addMep(new mep(mepName, mepEmail, mepPhone, partyList));
     }
 
     private void deleteMEP() {
@@ -267,7 +267,7 @@ public class EUDriver {
 
     /**
      * Lets a user type in a country they wish to see the Meps in
-     * @return the Meps of that country the user typed in
+     * @return the MEPs of that country the user typed in
 */
         private String listMEPsOfCountry() {
             if (euCountries.size() == 0) {
@@ -276,14 +276,14 @@ public class EUDriver {
                 System.out.print("Enter a Country of MEPs ==> ");
                 String countryName = input.nextLine();
 
-                String listMepsOfCountry = "";
+                String listMEPsOfCountry = "";
                 for(int i = 0; i < euCountries.size(); i++){
                     if (!euCountries.get(i).getMeps().isEmpty()) {
-                        listMepsOfCountry = listMepsOfCountry + i + ": " + euCountries.get(i).listOfMeps() + "\n";
+                        listMEPsOfCountry = listMEPsOfCountry + i + ": " + euCountries.get(i).listOfMEPs() + "\n";
                     }
-
+                    return listMEPsOfCountry;
                 }
-                return listMepsOfCountry;
+
 
                 }
             }
@@ -294,6 +294,7 @@ public class EUDriver {
                 if (string.matches(c.getName())) {
                     return c;
                 }
+                return c;
             }
         }
 
@@ -302,26 +303,21 @@ public class EUDriver {
      * Party MENU *
      **************/
 
-    private void addParty(Party party){
+    private void addParty(Party party) {
         System.out.print("Enter the Party's Name:    ");
         String partyName = input.nextLine();
         System.out.print("Enter the Party's Leader:   ");
         String partyLeader = input.nextLine();
-        try {
-            if(Utilities.validGenre(String))
-            String partyGenre = input.nextLine();
-        } catch (Exception e) {
-            input.nextLine();
-            System.out.println("Expected valid genre - received unknown" + e);
-        }
         int numLocalReps = ScannerInput.readNextInt("Enter the number of local representatives the party has:    ");
-
-        Party parties
-        parties.add(new Party(partyName, partyLeader, partyGenre, numLocalReps));
+        System.out.print("Enter the Party's Genre:   ");
+        String partyGenre = input.nextLine();
+        if (Utilities.validGenre(partyGenre) == partyGenre) {
+            partyList.addParty(new Party(partyName, partyLeader, partyGenre, numLocalReps));
+        }
     }
 
 
-    private void removeParty(){
+    private void deleteParty(){
         //lists the currently stored parties in the partyList object.
         System.out.println(partyList.listOfParties());
 
@@ -386,9 +382,9 @@ public class EUDriver {
         System.out.println("The Largest Party with the most Local Representatives is: " + partyList.largestParty());
     }
 
-    private void printMostMeps()
+    private void printMostMEPs()
     {
-        System.out.println("The Largest Party with the most Meps is: " + partyList.mostMeps(euCountries));
+        System.out.println("The Largest Party with the most Meps is: " + partyList.mostMEPs(euCountries));
     }
 
     private void listPartyByGenre()
@@ -407,16 +403,16 @@ public class EUDriver {
         System.out.println(listMEPsBySpecificParty(party));
     }
 
-    //list all the meps in the specific party
+    //list all the MEPs in the specific party
     public String listMEPsBySpecificParty(String party)
     {
-        if (Party(index).isEmpty()){
-            return "No Meps in this party ";
+        if (!Utilities.validParty(party, partyList).equals(party)){
+            return "No MEPs in this party ";
         }
         else
         {
             String listMEPsBySpecificParty = "";
-            for (int i = 0; i < partyList.getPartyList().size(); i++)
+            while (getPartyList() > mep)
             {
                 if(partyList.getPartyList(i).get) {
                     listMEPsBySpecificParty = listMEPsBySpecificParty + i + ": " + getParty(i) + "\n";

@@ -4,11 +4,11 @@ public class Country {
 
     private String name;
     private ArrayList<Mep> meps;
-    private int noMeps;
+    private int noMEPs;
 
-    public Country(String name, int noMeps) {
+    public Country(String name, int noMEPs) {
         this.name = name;
-        this.noMeps = noMeps;
+        this.noMEPs = noMEPs;
         meps = new ArrayList<Mep>();
     }
 
@@ -28,7 +28,7 @@ public class Country {
         }
     }
 
-    public int numberOfMeps()
+    public int numberOfMEPs()
     {
         if(meps.size() != 0){
             int numberOfMeps = 0;
@@ -80,11 +80,11 @@ public class Country {
     {
         //checks if the size of Meps of the country are empty.
         if (meps.size() == 0){
-            return "No MEPs are currently in this party within this Country.";
+            return "0";
         }
         else{
             String listOfMepsByParty = "";
-            for (int i = 0; i < meps.size(); i++){
+            for (Mep mep : ){
                 listOfMepsByParty = listOfMepsByParty + i + ": " + meps.get(i) + "\n";
             }
             return noOfMepsByParty;
