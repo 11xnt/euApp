@@ -12,6 +12,10 @@ public class EUDriver {
         runMenu();
     }
 
+    public EUDriver(int i) {
+        euCountries = new ArrayList<Country>();
+    }
+
     public static void main(String[] args) {
         new EUDriver();
     }
@@ -198,9 +202,9 @@ public class EUDriver {
         System.out.print("Enter the MEP's Phone number:    ");
         String mepPhone = input.nextLine();
         System.out.print("Enter the MEP's Party:    ");
-        Party mepParty = input.nextParty();
+        Party mepParty = input.nextLine();
 
-        Country.addMep(new mep(mepName, mepEmail, mepPhone, partyList));
+        euCountries.add(new Mep(mepName, mepEmail, mepPhone, mepParty, partyList));
     }
 
     private void deleteMEP() {
@@ -236,8 +240,7 @@ public class EUDriver {
             //user picks a country where the Mep is located in
             index = ScannerInput.readNextInt("Enter the index of the Country of where the MEP is from ==> ");
 
-            if ((index >= 0) && (index < euCountries.size()))
-            {
+            if ((index >= 0) && (index < euCountries.size())) {
                 System.out.println(euCountries.get(index).getMeps());
 
                 int i = ScannerInput.readNextInt("Enter the index of the MEP you want to delete ==> ");
@@ -252,18 +255,19 @@ public class EUDriver {
                     String mepPhone = input.nextLine();
                     System.out.print("Enter the MEP's Party:    ");
                     //retrieve the MEP from the ArrayList and update the details with the user input
-                    Mep mep = euCountries.get(i).getMep(index);
+
+                    Mep mep = euCountries.get(index).getMeps().get(index);
                     mep.setMEPName(mepName);
                     mep.setMEPEmail(mepEmail);
                     mep.setMEPPhone(mepPhone);
-                    mep.setMEPParty(mepParty);
+                    mep.setMEPParty(mepParty, partyList);
 
-                } else {
-                    System.out.println("There is no MEP for this index number");
+                    } else {
+                        System.out.println("There is no MEP for this index number");
+                    }
                 }
             }
         }
-    }
 
     /**
      * Lets a user type in a country they wish to see the Meps in
@@ -281,21 +285,19 @@ public class EUDriver {
                     if (!euCountries.get(i).getMeps().isEmpty()) {
                         listMEPsOfCountry = listMEPsOfCountry + i + ": " + euCountries.get(i).listOfMEPs() + "\n";
                     }
-                    return listMEPsOfCountry;
                 }
 
-
+                return listMEPsOfCountry;
                 }
             }
 
 
         public Country findCountry(String string) {
             for (Country c : euCountries) {
-                if (string.matches(c.getName())) {
+                if (string.matches(c.getName()))
                     return c;
-                }
-                return c;
             }
+            return null;
         }
 
 
@@ -412,7 +414,7 @@ public class EUDriver {
         else
         {
             String listMEPsBySpecificParty = "";
-            while (getPartyList() > mep)
+            for (int i = 0; i < )
             {
                 if(partyList.getPartyList(i).get) {
                     listMEPsBySpecificParty = listMEPsBySpecificParty + i + ": " + getParty(i) + "\n";

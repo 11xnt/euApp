@@ -68,17 +68,20 @@ public class PartyList {
 
 
     //calculates the party with the most MEPs.
+
+    // if parties doesnt exist -> return nothing
+    // runs a loop to find the most MEPs in a party object and returns it to the user.
     public Party mostMEPs(ArrayList<Country> euCountries)
     {
         if(!parties.isEmpty())
         {
-            Country mostMEPs = euCountries.get(0);
-            for (Country country : euCountries)
+            Party mostMEPs = euCountries.get(0);
+            for (Party party : euCountries)
             {
-                if (country.listOfMEPsByParty() > mostMEPs.getMeps())
+                if (euCountries.getMeps() > mostMEPs.getMeps())
                     mostMEPs = party;
             }
-            return party.
+            return mostMEPs;
         }
     }
 

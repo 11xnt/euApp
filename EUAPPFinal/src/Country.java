@@ -15,7 +15,7 @@ public class Country {
 
 
 
-    public void addMep(Mep mep){
+    public void addMEP(Mep mep){
         meps.add(mep);
     }
 
@@ -76,18 +76,17 @@ public class Country {
         }
     }
 
-    public int noOfMEPsByParty(ArrayList<Party> party)
+    public int noOfMEPsByParty(Party party)
     {
         //checks if the size of Meps of the country are empty.
         if (meps.size() == 0){
-            return "0";
+            return 0;
         }
         else{
-            String listOfMepsByParty = "";
-            for (Mep mep : ){
-                listOfMepsByParty = listOfMepsByParty + i + ": " + meps.get(i) + "\n";
+            for (int i = 0; i < meps.size(); i++){
+                noOfMEPsByParty = noOfMEPsByParty + i;
             }
-            return noOfMepsByParty;
+            return noOfMEPsByParty;
         }
     }
 
@@ -122,7 +121,7 @@ public class Country {
     }
 
     public void setMep(ArrayList<Mep> mep){
-        this.meps = meps;
+        this.meps = mep;
     }
 
     public int getNoMeps(){
