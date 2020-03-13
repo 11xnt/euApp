@@ -1,3 +1,10 @@
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
+
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -42,8 +49,13 @@ public class EUDriver {
         System.out.println("--------------");
         System.out.println("Report Menu");
         System.out.println("  13) Print all the parties in the EU");
+        System.out.println("  14) Calculate and print the party with the most local Representatives");
+        System.out.println("  15) Calculate and print the party with the most MEP's");
+        System.out.println("  16) List all the parties of a given Genre");
+        System.out.println("  17) List all MEPs of a given party");
         System.out.println("--------------");
-
+        System.out.println("  20) Save to XML");
+        System.out.println("  21) Load from XML");
         System.out.println("--------------");
         System.out.println("  0) Exit");
         return ScannerInput.readNextInt("==>>");
@@ -103,6 +115,20 @@ public class EUDriver {
                     break;
                 case 17:
                     listMEPsByPartyName();
+                    break;
+                case 20:
+                    try {
+                        saveCountries();
+                    } catch (Exception e) {
+                        System.err.println("Error writing to the file: " + e);
+                    }
+                    break;
+                case 21:
+                    try {
+                        loadCountries();
+                    } catch (Exception e) {
+                        System.err.println("Error reading from the file: " + e);
+                    }
                 default:
                     System.out.println("Invalid option entered: " + option);
                     break;
@@ -172,18 +198,18 @@ public class EUDriver {
         //lists the Countries
         System.out.println(listCountries());
 
-        if (getEuCountries().size() > 0) {
+        if (euCountries.size() > 0) {
             //only ask the user to choose a party if products exist
             int index = ScannerInput.readNextInt("Enter the index of the Country to update ==> ");
 
-            if ((index >= 0) && (index < getEuCountries().size())) {
+            if ((index >= 0) && (index < euCountries.size())) {
                 System.out.print("Enter the Country Name:    ");
                 String name = input.nextLine();
-                int noMeps = ScannerInput.readNextInt("Enter the number of Meps: ");
+                int noMEPs = ScannerInput.readNextInt("Enter the number of Meps: ");
 
-                Country euCountries = getEuCountries().get(index);
-                euCountries.setName(name);
-                euCountries.setNoMeps(noMeps);
+                Country country = euCountries.get(index);
+                country.setName(name);
+                country.setNoMEPs(noMEPs);
             } else {
                 System.out.println("There is no Party for this index number");
             }
@@ -195,17 +221,32 @@ public class EUDriver {
      ****************/
 
     private void addMEP() {
-        System.out.print("Enter the MEP's Name:    ");
-        String mepName = input.nextLine();
-        System.out.print("Enter the MEP's Email:   ");
-        String mepEmail = input.nextLine();
-        System.out.print("Enter the MEP's Phone number:    ");
-        String mepPhone = input.nextLine();
-        System.out.print("Enter the MEP's Party:    ");
-        Party mepParty = input.nextLine();
+        //lists the Countries
+        System.out.println(listCountries());
 
-        euCountries.add(new Mep(mepName, mepEmail, mepPhone, mepParty, partyList));
-    }
+        if (!euCountries.isEmpty()) {
+            //only ask the user to choose a party if products exist
+            int index = ScannerInput.readNextInt("Enter the index of the Country to update ==> ");
+
+            if (Utilities.validIndex(index, euCountries)) {
+                System.out.print("Enter the MEP's Name:    ");
+                String mepName = input.nextLine();
+                System.out.print("Enter the MEP's Email:   ");
+                String mepEmail = input.nextLine();
+                System.out.print("Enter the MEP's Phone number:    ");
+                String mepPhone = input.nextLine();
+                System.out.print("Enter the MEP's Party:    ");
+                String mepParty = input.nextLine();
+                Party tempParty = Utilities.validParty(mepParty, partyList);
+                euCountries.get(index).addMEP(new Mep(mepName, mepEmail, mepPhone, tempParty, partyList));
+                }
+            }
+        else
+     {
+        System.out.println("No Country for this index number");
+        }
+
+}
 
     private void deleteMEP() {
         //lists the Countries
@@ -219,7 +260,7 @@ public class EUDriver {
 
                 int i = ScannerInput.readNextInt("Enter the index of the MEP you want to delete ==> ");
                 if ((i >= 0) && (i < euCountries.get(index).getMeps().size())) {
-                    euCountries.get(index).getMeps().remove(i);
+                    euCountries.get(index).removeMep(i);
                     System.out.println("Mep deleted.");
                 }
             } else {
@@ -232,13 +273,13 @@ public class EUDriver {
 
     }
 
-    private void upDateMEP(int index) {
-        //list the Countries and ask the user to choose the Mep to edit
-        System.out.println(listCountries());
+    private void upDateMEP() {
 
-        if (getEuCountries().size() != 0) {
+        if (!getEuCountries().isEmpty()) {
+            //list the Countries and ask the user to choose the Mep to edit
+            System.out.println(listCountries());
             //user picks a country where the Mep is located in
-            index = ScannerInput.readNextInt("Enter the index of the Country of where the MEP is from ==> ");
+            int index = ScannerInput.readNextInt("Enter the index of the Country of where the MEP is from ==> ");
 
             if ((index >= 0) && (index < euCountries.size())) {
                 System.out.println(euCountries.get(index).getMeps());
@@ -255,12 +296,13 @@ public class EUDriver {
                     String mepPhone = input.nextLine();
                     System.out.print("Enter the MEP's Party:    ");
                     //retrieve the MEP from the ArrayList and update the details with the user input
-
-                    Mep mep = euCountries.get(index).getMeps().get(index);
+                    String mepParty = input.nextLine();
+                    Mep mep = euCountries.get(index).getMep(index);
                     mep.setMEPName(mepName);
                     mep.setMEPEmail(mepEmail);
                     mep.setMEPPhone(mepPhone);
-                    mep.setMEPParty(mepParty, partyList);
+                    Party tempParty = Utilities.validParty(mepParty,partyList);
+                    mep.setMEPParty(tempParty, partyList);
 
                     } else {
                         System.out.println("There is no MEP for this index number");
@@ -272,7 +314,7 @@ public class EUDriver {
     /**
      * Lets a user type in a country they wish to see the Meps in
      * @return the MEPs of that country the user typed in
-*/
+     */
         private String listMEPsOfCountry() {
             if (euCountries.size() == 0) {
                 return "No Countries";
@@ -305,7 +347,7 @@ public class EUDriver {
      * Party MENU *
      **************/
 
-    private void addParty(Party party) {
+    private void addParty() {
         System.out.print("Enter the Party's Name:    ");
         String partyName = input.nextLine();
         System.out.print("Enter the Party's Leader:   ");
@@ -399,32 +441,48 @@ public class EUDriver {
 
     private void listMEPsByPartyName()
     {
+        //invites the user to enter a party name
         System.out.print("Enter the Party Name:    ");
         String party = input.nextLine();
 
         System.out.println(listMEPsBySpecificParty(party));
     }
 
-    //list all the MEPs in the specific party
+    //list all the MEPs in the specific party the user has chosen
     public String listMEPsBySpecificParty(String party)
     {
         if (!Utilities.validParty(party, partyList).equals(party)){
-            return "No MEPs in this party ";
+            return "Invalid Party";
         }
-        else
-        {
-            String listMEPsBySpecificParty = "";
-            for (int i = 0; i < )
-            {
-                if(partyList.getPartyList(i).get) {
-                    listMEPsBySpecificParty = listMEPsBySpecificParty + i + ": " + getParty(i) + "\n";
+        else {
+            String listOfMEPsByParty = "";
+            for (int i = 0; i < partyList.getPartyList().size(); i++) {
+                if (party.contains(listOfMEPsByParty())){
+                    listOfMEPsByParty = listOfMEPsByParty + i + ": " + products.get(i) + "\n";
                 }
-
             }
-            return listMEPsBySpecificParty;
+            return listOfMEPsByParty;
         }
+
     }
 
+    /******************
+     * Save/Load Menu *
+     ******************/
+
+    private void saveCountries() throws Exception {
+        XStream xstream = new XStream(new DomDriver());
+        ObjectOutputStream out = xstream.createObjectOutputStream(new FileWriter("countries.xml"));
+        out.writeObject(euCountries);
+        out.close();
+    }
+
+    private void loadCountries() throws Exception {
+        XStream xstream = new XStream(new DomDriver());
+        ObjectInputStream is = xstream.createObjectInputStream(new FileReader("countries.xml"));
+        euCountries = (ArrayList<Country>) is.readObject();
+        is.close();
+    }
 
 
 

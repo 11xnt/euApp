@@ -68,37 +68,25 @@ public class Country {
             return "No MEPs are currently in this party within this Country.";
         }
         else{
-            String listOfMepsByParty = "";
-            for (int i = 0; i < meps.size(); i++){
-                listOfMepsByParty = listOfMepsByParty + i + ": " + meps.get(i) + "\n";
+            String listOfMEPsByParty = "";
+            for (int i = 0; i < meps.size(); i++) {
+                if (meps.contains(party)) {
+                    listOfMEPsByParty = listOfMEPsByParty + i + ": " + meps.get(i) + "\n";
+                }
             }
-            return listOfMepsByParty;
+            return listOfMEPsByParty;
         }
     }
 
     public int noOfMEPsByParty(Party party)
     {
         //checks if the size of Meps of the country are empty.
-        if (meps.size() == 0){
-            return 0;
-        }
-        else{
-            for (int i = 0; i < meps.size(); i++){
-                noOfMEPsByParty = noOfMEPsByParty + i;
-            }
-            return noOfMEPsByParty;
-        }
     }
 
 
-
-
-
-
-
-
-
-
+    /*********************
+     * GETTERS & SETTERS *
+     *********************/
 
     public String getName(){
         return name;
@@ -124,12 +112,12 @@ public class Country {
         this.meps = mep;
     }
 
-    public int getNoMeps(){
-        return noMeps;
+    public int getNoMEPs(){
+        return noMEPs;
     }
 
-    public void setNoMeps(int i){
-        this.noMeps = noMeps;
+    public void setNoMEPs(int i){
+        this.noMEPs = noMEPs;
     }
 
 
@@ -138,15 +126,13 @@ public class Country {
 
 
     /**
-     *
      * toString to return the Country's relative data in the console.
-     *
      */
     public String toString()
     {
         return "Country Name: " + name
                 + ", Meps : " + meps
-                + ", Max number of Meps: " + noMeps;
+                + ", Max number of Meps: " + noMEPs;
     }
 
 

@@ -109,8 +109,7 @@ public class PartyList {
 
                           /*********************
                            * GETTERS & SETTERS *
-                           ********************
-                           * @return*/
+                           *********************/
 
     public ArrayList<Party> getPartyList(){
         return parties;
@@ -122,8 +121,8 @@ public class PartyList {
 
     public Party getParty(int index)
     {
-        if(!getPartyList().isEmpty()){
-            return getPartyList().get(index);
+        if(Utilities.validIndex(index, parties)){
+            return parties.get(index);
         }
         else {
             return null;
